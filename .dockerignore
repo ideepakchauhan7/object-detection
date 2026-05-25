@@ -1,0 +1,10 @@
+.git
+.venv
+__pycache__
+*.pyc
+runs/
+models/*.pt
+models/*.onnx
+models/*.torchscript
+data/images/
+data/labels/

@@ -1,0 +1,91 @@
+project:
+  title: Object Detection using YOLO (YOLOv8)
+  intern_id: CITS1758
+  seed: 42
+
+runtime:
+  device: auto
+
+paths:
+  custom_dataset_yaml: data/dataset.yaml
+  models_dir: models
+  runs_dir: runs
+  train_project: runs/train
+  evaluation_project: runs/evaluation
+  detection_project: runs/detect
+  export_dir: models/exported
+
+dataset:
+  # Use "coco128" for a runnable demo or "custom" for data/dataset.yaml.
+  active: coco128
+  demo_yaml: coco128.yaml
+  custom_yaml: data/dataset.yaml
+
+model:
+  pretrained: yolov8n.pt
+  trained_weights: models/best.pt
+
+training:
+  epochs: 50
+  imgsz: 640
+  batch: 16
+  workers: 4
+  patience: 25
+  cache: false
+  name: yolov8_custom
+  exist_ok: true
+  optimizer: auto
+  seed: 42
+  amp: true
+  close_mosaic: 10
+
+augmentation:
+  use_ultralytics_builtin: true
+  builtin:
+    hsv_h: 0.015
+    hsv_s: 0.7
+    hsv_v: 0.4
+    degrees: 0.0
+    translate: 0.1
+    scale: 0.5
+    shear: 0.0
+    perspective: 0.0
+    flipud: 0.0
+    fliplr: 0.5
+    mosaic: 1.0
+    mixup: 0.0
+  offline:
+    enabled: false
+    copies_per_image: 1
+
+validation:
+  split: val
+  imgsz: 640
+  batch: 16
+  conf: 0.001
+  iou: 0.6
+  name: validation
+
+detection:
+  source: data/images/test
+  imgsz: 640
+  conf: 0.25
+  iou: 0.45
+  name: predict
+  save_txt: false
+  save_crop: false
+  show: false
+
+export:
+  formats:
+    - onnx
+    - torchscript
+  imgsz: 640
+  dynamic: false
+  half: false
+  opset: 12
+
+app:
+  host: 0.0.0.0
+  port: 7860
+  share: false
