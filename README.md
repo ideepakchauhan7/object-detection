@@ -71,10 +71,10 @@ folders above, edit `data/dataset.yaml`, and set `dataset.active: custom` in
 
 ## Hardware Note
 
-This project is configured for automatic CPU/CUDA selection. The local
-environment used while scaffolding reported Python 3.12.3 and no active NVIDIA
-driver, so defaults are CPU-safe while still using CUDA automatically when
-PyTorch detects a GPU.
+This project is configured for automatic CPU/CUDA selection. During the smoke
+training run, Ultralytics detected an **NVIDIA GeForce RTX 3060 12GB** with
+PyTorch `2.12.0+cu130`; the scripts still fall back to CPU automatically when
+CUDA is unavailable.
 
 ## Installation
 
